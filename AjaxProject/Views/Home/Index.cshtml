@@ -1,0 +1,70 @@
+﻿@model IEnumerable<AjaxProject.Models.Manufacturer>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<br />
+<div class="row">
+    <div class="col-md-4">
+        <select class="form-control" id="select-manufacturer">
+            <option value="0">Seçim edin</option>
+            @foreach (var manufacturer in Model)
+            {
+                <option value="@manufacturer.Id">@manufacturer.Name</option>
+            }
+        </select>
+
+
+        <br />
+        <select class="form-control" id="select-models">
+            <option value="0">Seçim edin</option>
+
+        </select>
+    </div>
+
+    <div class="col-md-4">
+
+        <ul id="ul-models"></ul>
+    </div>
+
+    <div class="col-md-4">
+        <form id="register-form" action="@Url.Action("Register", "User")" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label>Fullname</label>
+                <input class="form-control" type="text" name="Fullname" data-validation="required" />
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input class="form-control" type="text" name="Email"
+                       data-validation="required email server"
+                       data-validation-url="@Url.Action("CheckEmail", "User")" />
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input class="form-control" type="password" name="Password_confirmation" data-validation="required" />
+            </div>
+            <div class="form-group">
+                <label>Password verify</label>
+                <input class="form-control" type="password" name="Password" data-validation="required confirmation" />
+            </div>
+            <div class="form-group">
+                <label>Photo</label>
+                <input class="form-control" type="file" name="Photo"
+                       data-validation="required size mime"
+                       data-validation-max-size="1M"
+                       data-validation-allowing="jpg, png"
+                       data-validation-error-msg-size="You can not upload images larger than 1 mb"
+                       data-validation-error-msg-mime="You can only upload png and jpeg images" />
+            </div>
+            <input class="btn btn-success" type="submit" value="Register" />
+        </form>
+
+
+    </div>
+
+</div>
+
+@section scripts{
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
+    <script src="~/Scripts/main.js"></script>
+}
